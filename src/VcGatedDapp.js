@@ -20,6 +20,7 @@ import {
   waitForTransaction,
 } from "@wagmi/core";
 import demoAbi from "./demoSmartContract/demoAbi.json";
+import AdminPanel from "./sections/admin";
 
 function VcGatedDapp() {
   const chain = polygonZkEvmTestnet;
@@ -33,7 +34,7 @@ function VcGatedDapp() {
 
   // variables specific to demo
   const myZkEVMSmartContractAddress =
-    "0x3Baf2aa2aD287949590cD39a731fD17606c7D10F";
+    "0x75620cA86f29d27AB80278B5621647bd194E9645";
 
   const contractConfig = {
     address: myZkEVMSmartContractAddress,
@@ -42,6 +43,7 @@ function VcGatedDapp() {
   };
 
   const [count, setCount] = useState();
+  const [sessions, setSessions] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -63,56 +65,44 @@ function VcGatedDapp() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (publicClient) {
-      const readCount = async () => {
-        await readCounterValue();
-      };
-      const checkCurrentBlockNumber = async () => {
-        const blockNumber = await publicClient.getBlockNumber();
-        setCurrentBlockNumber(blockNumber);
-      };
-
-      readCount();
-      checkCurrentBlockNumber();
-    }
-  }, [publicClient]);
-
-  async function readCounterValue() {
+  async function readSessionValue() {
     try {
       const data = await readContract({
         ...contractConfig,
-        functionName: "retrieve",
+        functionName: "getSessions",
         chainId,
       });
-      const newCount = JSON.parse(data);
-      setCount(newCount);
-      return newCount;
+      console.log("It will try")
+      const newSessions = data;
+      console.log(JSON.stringify(newSessions));
+      setSessions(newSessions);
+      return newSessions;
     } catch (err) {
       console.log("Error: ", err);
     }
   }
 
-  const incrementCounter = async () => {
+  const generateNewSession = async () => {
     if (addressIsConnected) {
       const { hash } = await writeContract({
         ...contractConfig,
-        functionName: "increment",
-        // args: [69],
+        functionName: "createVotingSession",
+        args: [12],
       });
       setIsLoading(true);
       const data = await waitForTransaction({
         hash,
       });
-      await readCounterValue();
+      console.log("new session generated")
+      await readSessionValue();
       setIsLoading(false);
     } else {
       alert("Connect wallet to update blockchain data");
     }
-  };
+  }
 
   return (
-    <div id="vc-gated-dapp">
+    <div id="vc-gated-dapp h-full">
       <div className="bg-indigo-700 py-4">
         <Container maxW={"80%"}>
           <Flex justifyContent="space-between">
@@ -122,25 +112,27 @@ function VcGatedDapp() {
         </Container>
       </div>
 
-      <Box>
-        <Container maxW={"80%"} py={4}>
-          <div>
-            <Card my={4} p={4}>
-              <Center>
-                <VStack>
-                  <Heading>Counter Dapp</Heading>
+      <div className="bg-neutral-100 flex flex-wrap justify-center md:order-2">
+            <div
+              className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
+            >
+              Admin Panel
+            </div>
 
-                  <p>The current count is</p>
-                  <Heading>{isLoading ? <Spinner></Spinner> : count}</Heading>
-                  <Button onClick={() => incrementCounter()}>
-                    Increment counter
-                  </Button>
-                </VStack>
-              </Center>
-            </Card>
+            <div
+              className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
+            >
+              Voter Panel
+            </div>
+
+            <div
+              className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
+            >
+              Result
+            </div>
           </div>
-        </Container>
-      </Box>
+
+          <AdminPanel />
     </div>
   );
 }
