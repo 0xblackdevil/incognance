@@ -65,6 +65,7 @@ export default function AdminPanel() {
           });
           console.log("new session generated")
           setSessionId(parseInt(data.logs[0].data));
+          setSessions([]);
           await getProposols();
           setIsLoading(false);
         } else {
@@ -80,32 +81,12 @@ export default function AdminPanel() {
               args: [parseInt(sessionId)],
             });
             console.log(data);
-            // const data = await readContract({
-            //   ...contractConfig,
-            //   functionName: "viewProposals",
-            //   inputs: [sessionId],
-            //   chainId,
-            // });
-            // console.log("It will try")
-            // const newSessions = data;
-            // console.log(JSON.stringify(newSessions));
-            // setSessions(newSessions);
-            // return newSessions;
+            setSessions(data);
           } catch (err) {
             console.log("Error: ", err);
           }
 
-        if (addressIsConnected) {
-          const data = await readContract({
-            ...contractConfig,
-            functionName: "viewProposals",
-            chainId,
-          });
-          const newSessions = data;
-            console.log(JSON.stringify(newSessions));
-        } else {
-          alert("Connect wallet to update blockchain data");
-        }
+      
       }
 
       const createProposol = async () => {
@@ -136,9 +117,7 @@ export default function AdminPanel() {
 
 
             <div className="grid grid-cols-3 gap-5 m-4">
-                <CardComponent />
-                <CardComponent />
-                <CardComponent />
+                {sessions == [] ? sessions.map((data, index) => <CardComponent cardIndex={index}  />) : <></>}
                 <div className="bg-white grid grid-rows-4 grid-flow-row gap-4 shadow-lg p-4 rounded-lg">
                     <div className="row-span-4 col-span-4 text-center text-2xl"><button onClick={createProposol}>+</button></div>
                 </div>
