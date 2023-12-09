@@ -113,14 +113,14 @@ function VcGatedDapp() {
 
   return (
     <div id="vc-gated-dapp">
-      <Box background="black" color="white" py={4}>
+      <div className="bg-orange-400 py-4">
         <Container maxW={"80%"}>
           <Flex justifyContent="space-between">
-            <Heading>My VC Gated Dapp</Heading>
-            <ConnectButton showBalance={false} />
+            <h1 className="text-2xl font-bold">DigitalVoting System</h1>
+            <ConnectButton className="bg-white" showBalance={false} />
           </Flex>
         </Container>
-      </Box>
+      </div>
 
       <Box>
         <Container maxW={"80%"} py={4}>
