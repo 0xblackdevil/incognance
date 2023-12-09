@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { createPublicClient, http } from "viem";
 import { polygonZkEvmTestnet } from "viem/chains";
 import {
@@ -9,6 +9,7 @@ import {
   Heading,
   Button,
   Spinner,
+  Card,
   Center,
   VStack,
 } from "@chakra-ui/react";
@@ -19,7 +20,6 @@ import {
   waitForTransaction,
 } from "@wagmi/core";
 import demoAbi from "./demoSmartContract/demoAbi.json";
-import AdminPanel from "./sections/admin";
 
 function VcGatedDapp() {
   const chain = polygonZkEvmTestnet;
@@ -29,7 +29,7 @@ function VcGatedDapp() {
   const [connectedAddress, setConnectedAddress] = useState();
   const [addressIsConnected, setAddressIsConnected] = useState(false);
   const [currentBlockNumber, setCurrentBlockNumber] = useState();
-  const [showConnectionInfo, setShowConnectionInfo] = useState(true);
+  const [showConnectionInfo, setShowConnectionInfo] = useState(false);
 
   // variables specific to demo
   const myZkEVMSmartContractAddress =
@@ -116,34 +116,31 @@ function VcGatedDapp() {
       <div className="bg-indigo-700 py-4">
         <Container maxW={"80%"}>
           <Flex justifyContent="space-between">
-            <h1 className="text-2xl text-white">DigitalVoting System</h1>
-
+            <h1 className="text-xl text-white">DigitalVoting System</h1>
+            <ConnectButton className="bg-white" showBalance={false} />
           </Flex>
         </Container>
       </div>
 
-      <div className="flex flex-wrap justify-center md:order-2">
-            <button
-              className={`rounded  border m-5 bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
-            >
-              Admin Panel
-            </button>
+      <Box>
+        <Container maxW={"80%"} py={4}>
+          <div>
+            <Card my={4} p={4}>
+              <Center>
+                <VStack>
+                  <Heading>Counter Dapp</Heading>
 
-            <button
-              className={`rounded  border m-5 bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
-            >
-              Voter Panel
-            </button>
-
-            <button
-              className={`rounded  border m-5 bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
-            >
-              Result Zoon
-            </button>
+                  <p>The current count is</p>
+                  <Heading>{isLoading ? <Spinner></Spinner> : count}</Heading>
+                  <Button onClick={() => incrementCounter()}>
+                    Increment counter
+                  </Button>
+                </VStack>
+              </Center>
+            </Card>
           </div>
-
-          <AdminPanel />
-
+        </Container>
+      </Box>
     </div>
   );
 }
