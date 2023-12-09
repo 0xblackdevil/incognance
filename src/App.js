@@ -13,18 +13,19 @@ function App() {
       {provedAccessBirthday ? (
         <VcGatedDapp />
       ) : (
+
         <Center className="vc-check-page">
           <div className="drop-shadow-lg"> 
           <Container>
             <Card
               style={{
-                border: "2px solid #fb923c",
+                border: "2px solid #4338ca",
               }}
             >
              
               <CardBody style={{ paddingBottom: 0 }}>
                 <p>
-                  This is online <span className="font-bold">voting application</span>, which is built with Polygon ID VC (Verifiable Credential) gated dapp. 
+                  A governance protocol powered by <span className="text-indigo-700 font-bold">Polygon ID</span>.
                   It was created at EthIndia'23 by <span className="font-bold">@0xblackdevil</span> and <span className="font-bold">@ShivamDeshmukh</span>.
                 </p>
 

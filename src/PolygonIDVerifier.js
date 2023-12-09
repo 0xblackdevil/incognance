@@ -108,7 +108,7 @@ function PolygonIDVerifier({
   return (
     <div>
       {sessionId ? (
-        <button className="bg-orange-400 my-4 px-5 py-2 text-black rounded-lg font-bold" onClick={onOpen} >
+        <button className="bg-indigo-600 text-white my-4 px-5 py-2 text-black rounded-lg font-bold" onClick={onOpen} >
           Prove your rights
         </button>
       ) : (
@@ -160,17 +160,11 @@ function PolygonIDVerifier({
 
             <ModalFooter>
               <button
-              className="m-2 bg-orange-400 text-xs px-4 py-2"
+              className="m-2 w-full bg-indigo-700 text-white text-s px-4 py-2"
                 onClick={() => openInNewTab(linkDownloadPolygonIDWalletApp)}
               >
                 Download Polygon ID Wallet
                 <ExternalLinkIcon marginLeft={1} />
-              </button>
-              <button
-               className="m-2 bg-orange-400 text-xs px-4 py-2"
-                onClick={() => openInNewTab(issuerOrHowToLink)}
-              >
-                Get a voter portal access<ExternalLinkIcon marginLeft={1} />
               </button>
             </ModalFooter>
           </ModalContent>
