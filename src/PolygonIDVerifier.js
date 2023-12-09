@@ -88,7 +88,7 @@ function PolygonIDVerifier({
             }, "2000");
             socket.close();
           } else {
-            setVerfificationMessage("❌ Error verifying VC");
+            setVerfificationMessage("❌ Error verifying Verifiable Credential");
           }
         }
       }
@@ -108,9 +108,9 @@ function PolygonIDVerifier({
   return (
     <div>
       {sessionId ? (
-        <Button colorScheme="purple" onClick={onOpen} margin={4}>
-          Prove access rights
-        </Button>
+        <button className="bg-orange-400 my-4 px-5 py-2 text-black rounded-lg font-bold" onClick={onOpen} >
+          Prove your rights
+        </button>
       ) : (
         <Spinner />
       )}
@@ -128,7 +128,7 @@ function PolygonIDVerifier({
               >
                 Polygon ID Wallet App
               </a>{" "}
-              to prove access rights
+              to prove your rights
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody textAlign={"center"} fontSize={"12px"}>
@@ -159,23 +159,19 @@ function PolygonIDVerifier({
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                fontSize={"10px"}
-                margin={1}
-                colorScheme="purple"
+              <button
+              className="m-2 bg-orange-400 text-xs px-4 py-2"
                 onClick={() => openInNewTab(linkDownloadPolygonIDWalletApp)}
               >
-                Download the Polygon ID Wallet App{" "}
-                <ExternalLinkIcon marginLeft={2} />
-              </Button>
-              <Button
-                fontSize={"10px"}
-                margin={1}
-                colorScheme="purple"
+                Download Polygon ID Wallet
+                <ExternalLinkIcon marginLeft={1} />
+              </button>
+              <button
+               className="m-2 bg-orange-400 text-xs px-4 py-2"
                 onClick={() => openInNewTab(issuerOrHowToLink)}
               >
-                Get a {credentialType} VC <ExternalLinkIcon marginLeft={2} />
-              </Button>
+                Get a voter portal access<ExternalLinkIcon marginLeft={1} />
+              </button>
             </ModalFooter>
           </ModalContent>
         </Modal>

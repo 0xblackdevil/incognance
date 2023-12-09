@@ -14,20 +14,18 @@ function App() {
         <VcGatedDapp />
       ) : (
         <Center className="vc-check-page">
+          <div className="drop-shadow-lg"> 
           <Container>
             <Card
               style={{
-                border: "2px solid #805AD5",
+                border: "2px solid #fb923c",
               }}
             >
+             
               <CardBody style={{ paddingBottom: 0 }}>
                 <p>
-                  This is a fullstack template for creating a Polygon ID VC{" "}
-                  <a href="https://0xpolygonid.github.io/tutorials/#core-concepts-of-polygon-id-verifiable-credentials-identity-holder-issuer-and-verifier-triangle-of-trust">
-                    (Verifiable Credential)
-                  </a>{" "}
-                  gated dapp. Prove you were born before January 1, 2023 to use
-                  the dapp
+                  This is online <span className="font-bold">voting application</span>, which is built with Polygon ID VC (Verifiable Credential) gated dapp. 
+                  It was created at EthIndia'23 by <span className="font-bold">@0xblackdevil</span> and <span className="font-bold">@ShivamDeshmukh</span>.
                 </p>
 
                 <PolygonIDVerifier
@@ -39,21 +37,17 @@ function App() {
                   }
                   credentialType={"KYCAgeCredential"}
                   issuerOrHowToLink={
-                    "https://oceans404.notion.site/How-to-get-a-Verifiable-Credential-f3d34e7c98ec4147b6b2fae79066c4f6?pvs=4"
+                    ""
                   }
                   onVerificationResult={setProvedAccessBirthday}
                 />
-                <Image
-                  src="https://bafybeibcgo5anycve5flw6pcz5esiqkvrzlmwdr37wcqu33u63olskqkze.ipfs.nftstorage.link/"
+                <image
+                  src="./assests/home.svg"
                   alt="Polygon devs image"
                   borderRadius="lg"
                 />
               </CardBody>
-              <a
-                href="https://twitter.com/0ceans404"
-                target="_blank"
-                rel="noreferrer"
-              >
+
                 <p
                   style={{
                     position: "absolute",
@@ -62,11 +56,12 @@ function App() {
                     fontSize: "8px",
                   }}
                 >
-                  Template built with 💜 by Steph
+                  Spacial thanks to <span className="font-bold">Steph</span> for template 
                 </p>
-              </a>
-            </Card>
+             
+            </Card> 
           </Container>
+            </div>
         </Center>
       )}
     </>
