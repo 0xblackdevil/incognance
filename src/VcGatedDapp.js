@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { createPublicClient, http } from "viem";
 import { polygonZkEvmTestnet } from "viem/chains";
+import { NavLink, Outlet } from "react-router-dom";
+
 import {
   Box,
   Container,
@@ -34,7 +36,7 @@ function VcGatedDapp() {
 
   // variables specific to demo
   const myZkEVMSmartContractAddress =
-    "0x75620cA86f29d27AB80278B5621647bd194E9645";
+    "0x9FFdf0711C55a01c3a21Fe472AffD76D547d2088";
 
   const contractConfig = {
     address: myZkEVMSmartContractAddress,
@@ -112,27 +114,30 @@ function VcGatedDapp() {
         </Container>
       </div>
 
-      <div className="bg-neutral-100 flex flex-wrap justify-center md:order-2">
-            <div
+      <div className=" flex flex-wrap justify-center md:order-2">
+            <NavLink
+            to="/admin"
               className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
             >
               Admin Panel
-            </div>
+            </NavLink>
 
-            <div
+            <NavLink
+            to="/"
               className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
             >
               Voter Panel
-            </div>
+            </NavLink>
 
-            <div
+            <NavLink
+            to="/result"
               className={`rounded  border m-5 "bg-indigo-100 text-indigo-800 border-indigo-300 text-xs font-medium mr-2 px-2.5 py-0.5`}
             >
               Result
-            </div>
+            </NavLink>
           </div>
 
-          <AdminPanel />
+          <Outlet />
     </div>
   );
 }

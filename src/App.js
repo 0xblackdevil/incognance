@@ -42,11 +42,7 @@ function App() {
                   }
                   onVerificationResult={setProvedAccessBirthday}
                 />
-                <image
-                  src="./assests/home.svg"
-                  alt="Polygon devs image"
-                  borderRadius="lg"
-                />
+              
               </CardBody>
 
                 <p
@@ -57,7 +53,7 @@ function App() {
                     fontSize: "8px",
                   }}
                 >
-                  Spacial thanks to <span className="font-bold">Steph</span> for template 
+                  Special thanks to <span className="font-bold">Steph</span> for template 
                 </p>
              
             </Card> 
