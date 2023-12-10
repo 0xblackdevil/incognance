@@ -11,11 +11,12 @@ import {
     useContractRead
 } from "@wagmi/core";
 
-export default function ViewVotes(data) {
+export default function ViewVotes(props) {
 
 
     const [showData, setShowData] = useState(null);
     const [proposols, setProposals] = useState([]);
+    const [proposol, setProposal] = useState();
     const [publicClient, setPublicClient] = useState();
     const [connectedAddress, setConnectedAddress] = useState();
     const [addressIsConnected, setAddressIsConnected] = useState(false);
@@ -24,6 +25,7 @@ export default function ViewVotes(data) {
     const chainId = polygonZkEvmTestnet.id;
 
     useEffect(() => {
+        // console.log(props.id)
         // A Public Client is an interface to "public" JSON-RPC API methods
         // such as retrieving block numbers, transactions, reading from smart contracts, etc
         const newPublicClient = createPublicClient({
@@ -42,7 +44,7 @@ export default function ViewVotes(data) {
 
         return () => clearInterval(interval);
 
-        console.log(data)
+
     }, []);
 
     const myZkEVMSmartContractAddress =
@@ -56,20 +58,20 @@ export default function ViewVotes(data) {
 
 
     useEffect(()=>{
-        console.log(data.sessionId);
+
         getProposols();
     },[])
 
     const getProposols = async () => {
-        console.log(parseInt(data.sessionId));
+
         try {
             const response = await readContract({
                 ...contractConfig,
-                functionName: "viewProposals",
-                args: [parseInt(data.sessionId)],
+                functionName: "viewProposal",
+                args: [props.sId, props.proposalId],
             });
-            console.log(response);
-            setProposals(response);
+            console.log("res", response);
+            setProposal(response);
         } catch (err) {
             console.log("Error: ", err);
         }
@@ -77,42 +79,26 @@ export default function ViewVotes(data) {
 
     const voteReading = async (index) => {
         if (addressIsConnected) {
-            const { hash } = await writeContract({
-                ...contractConfig,
-                functionName: "viewResult",
-                args: [parseInt(data.sessionId), index],
-            });
+            // const { hash } = await writeContract({
+            //     ...contractConfig,
+            //     functionName: "viewResult",
+            //     args: [parseInt(data.sessionId), index],
+            // });
 
-            const data = await waitForTransaction({
-                hash,
-            });
+            // const data = await waitForTransaction({
+            //     hash,
+            // });
             
-            console.log(parseInt(data.logs[0].data));
+            // console.log(parseInt(data.logs[0].data));
         } else {
             alert("Connect wallet to update blockchain data");
         }
     }
 
     return (
-        <article class="rounded-xl bg-white p-4 ring ring-indigo-50 sm:p-6 lg:p-8">
-  <div class="flex items-start sm:gap-8">
-   
-
-    <div>
-      <strong
-        class="rounded border border-indigo-500 bg-indigo-500 px-3 py-1.5 text-[10px] font-medium text-white w-1/2"
-      >
-        {String(data.sessionId)}
-      </strong>
-
-      <div className="grid grid-cols-4 gap-5 m-4">
-               {proposols == [] ? <>No proposols There</> : proposols.map((data, index) => <div class="p-4">
-                <h1>{String(data)}</h1>
-                <p>{}</p>
-                </div>) }
-            </div>
-    </div>
-  </div>
-</article>
+       <>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{proposol.description}</td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{parseInt(proposol.votes)}</td>
+       </>
     );
 }

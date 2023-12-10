@@ -25,6 +25,7 @@ export default function ResultCard(data) {
     const chainId = polygonZkEvmTestnet.id;
 
     useEffect(() => {
+        console.log("Result Card" + data);
         // A Public Client is an interface to "public" JSON-RPC API methods
         // such as retrieving block numbers, transactions, reading from smart contracts, etc
         const newPublicClient = createPublicClient({
@@ -108,6 +109,7 @@ export default function ResultCard(data) {
                         <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                             <thead class="ltr:text-left rtl:text-right">
                                 <tr>
+                                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Id</th>
                                     <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Title</th>
                                     <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Description</th>
                                     <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Total Votes</th>
@@ -115,25 +117,19 @@ export default function ResultCard(data) {
                                 </tr>
                             </thead>
 
+                            {/* {data.map((data,index) => )} */}
+                            {/* {data} */}
+
+                            {proposols.map((title, index) =>(
                             <tbody class="divide-y divide-gray-200">
                                 <tr class="odd:bg-gray-50">
-                                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">John Doe</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">24/05/1995</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">Web Developer</td>
-                                </tr>
+                                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{String(index)}</td>
+                                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{String(title)}</td>
+                                    <ViewVotes proposalId={index} sId={data.sessionId}/>
 
-                                <tr class="odd:bg-gray-50">
-                                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Jane Doe</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">04/11/1980</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">Web Designer</td>
-                                </tr>
 
-                                <tr class="odd:bg-gray-50">
-                                    <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Gary Barlow</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">24/05/1995</td>
-                                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">Singer</td>
                                 </tr>
-                            </tbody>
+                            </tbody>  ))}
                         </table>
                     </div>
                 </div>
